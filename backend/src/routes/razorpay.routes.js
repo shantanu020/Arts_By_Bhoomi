@@ -65,6 +65,13 @@ router.post('/verify-payment', async (req, res) => {
       .update(sign.toString())
       .digest("hex");
 
+    console.log('Verification Debug:', { 
+      orderId: razorpay_order_id, 
+      paymentId: razorpay_payment_id, 
+      receivedSign: razorpay_signature, 
+      expectedSign 
+    });
+
     if (razorpay_signature === expectedSign) {
       if (orderData) {
         const order = new Order({
