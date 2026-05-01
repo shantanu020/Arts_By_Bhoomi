@@ -88,7 +88,7 @@ export default function AboutPage() {
               <Reveal delay={0.4}>
                 <div className="space-y-10 text-xl text-text-muted leading-relaxed font-light italic font-serif">
                   <p>
-                    Hi, I'm <span className="text-text-main font-bold not-italic font-sans text-lg tracking-[0.1em] uppercase border-b border-accent/20 pb-1">Bhoomi Singh</span>. My journey with art began long before I could put it into words. It started with graphite smudges on notebook margins and has blossomed into a lifelong pursuit of capturing emotion on canvas.
+                    Hi, I&apos;m <span className="text-text-main font-bold not-italic font-sans text-lg tracking-[0.1em] uppercase border-b border-accent/20 pb-1">Bhoomi Singh</span>. My journey with art began long before I could put it into words. It started with graphite smudges on notebook margins and has blossomed into a lifelong pursuit of capturing emotion on canvas.
                   </p>
                   <p>
                     Through "Arts by Bhoomi", I share not just my finished pieces, but the raw, unpolished process of creation. My work spans across acrylics, charcoal sketches, and digital mediums.
@@ -132,7 +132,7 @@ export default function AboutPage() {
                 <div className="w-px h-24 bg-gradient-to-b from-transparent to-accent" />
                 <span className="text-accent text-[11px] tracking-[0.6em] uppercase font-bold">My Philosophy</span>
                 <p className="text-4xl md:text-6xl font-serif leading-[1.2] text-white italic tracking-tight">
-                  "I believe that art should be <span className="text-accent">accessible</span>, emotional, and deeply personal. It's a conversation between the creator and the observer."
+                  "I believe that art should be <span className="text-accent">accessible</span>, emotional, and deeply personal. It&apos;s a conversation between the creator and the observer."
                 </p>
                 <div className="w-24 h-[1px] bg-accent/40" />
                 

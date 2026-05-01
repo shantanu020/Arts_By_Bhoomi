@@ -142,7 +142,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 text-text-muted text-lg font-light leading-relaxed tracking-wide italic font-serif">
                <Reveal delay={0.4}>
                 <p>
-                  Every stroke is a deliberate act of vulnerability. In my studio, I don't just paint colors; I curate silences, capture whispers, and freeze the fleeting essence of human connection.
+                  Every stroke is a deliberate act of vulnerability. In my studio, I don&apos;t just paint colors; I curate silences, capture whispers, and freeze the fleeting essence of human connection.
                 </p>
                </Reveal>
                <Reveal delay={0.6}>

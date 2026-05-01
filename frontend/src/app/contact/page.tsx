@@ -85,7 +85,7 @@ export default function ContactPage() {
               
               <Reveal delay={0.2}>
                 <h1 className="text-6xl md:text-8xl font-serif mb-12 leading-[0.9] tracking-tighter italic">
-                  Let's create <br />
+                  Let&apos;s create <br />
                   <span className="text-accent/80">something</span><br/>
                   meaningful.
                 </h1>
@@ -93,7 +93,7 @@ export default function ContactPage() {
 
               <Reveal delay={0.4}>
                 <p className="text-xl text-text-muted mb-20 max-w-md font-light leading-relaxed italic font-serif">
-                  Whether you're seeking a centerpiece for your private collection or a custom-tailored commission, the studio is open for dialogue.
+                  Whether you&apos;re seeking a centerpiece for your private collection or a custom-tailored commission, the studio is open for dialogue.
                 </p>
               </Reveal>
 
