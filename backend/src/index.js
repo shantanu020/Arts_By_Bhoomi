@@ -17,6 +17,14 @@ import inquiryRoutes from './routes/inquiry.routes.js';
 
 dotenv.config();
 
+// Verify critical environment variables
+const requiredEnv = ['MONGO_URI', 'JWT_SECRET', 'RAZORPAY_KEY_ID', 'RAZORPAY_KEY_SECRET'];
+requiredEnv.forEach(env => {
+  if (!process.env[env]) {
+    console.error(`FATAL ERROR: Environment variable ${env} is missing.`);
+  }
+});
+
 connectDB();
 
 const app = express();
@@ -25,21 +33,24 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// Enhanced CORS for production
+// Robust CORS for production
 const allowedOrigins = [
   process.env.CLIENT_URL,
+  'https://arts-by-bhoomi.vercel.app', // Explicitly allow production domain
   'http://localhost:3000',
   'http://localhost:5173',
 ].filter(Boolean);
 
 app.use(cors({
   origin: function(origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
-    if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('vercel.app')) {
+    const isAllowed = allowedOrigins.some(ao => origin.startsWith(ao)) || origin.includes('vercel.app');
+    
+    if (isAllowed) {
       callback(null, true);
     } else {
+      console.warn(`CORS blocked for origin: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -47,6 +58,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -66,6 +78,15 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.get('/', (req, res) => {
   res.send('Arts by Bhoomi API is running...');
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error('SERVER ERROR:', err.stack);
+  res.status(500).json({ 
+    message: process.env.NODE_ENV === 'production' ? 'Internal Server Error' : err.message,
+    stack: process.env.NODE_ENV === 'production' ? null : err.stack
+  });
 });
 
 const PORT = process.env.PORT || 5000;

@@ -79,8 +79,9 @@ export default function CheckoutForm({ customerDetails, amount, cartItems }: Che
             });
             clearCart();
             router.push("/checkout/success");
-          } catch (verifyErr) {
-            setError("Payment verification failed. Please contact support.");
+          } catch (verifyErr: any) {
+            const errorMsg = verifyErr.response?.data?.message || "Payment verification failed. Please contact support.";
+            setError(errorMsg);
             setProcessing(false);
           }
         },
