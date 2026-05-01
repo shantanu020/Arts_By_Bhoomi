@@ -22,8 +22,14 @@ const requiredEnv = ['MONGO_URI', 'JWT_SECRET', 'RAZORPAY_KEY_ID', 'RAZORPAY_KEY
 requiredEnv.forEach(env => {
   if (!process.env[env]) {
     console.error(`FATAL ERROR: Environment variable ${env} is missing.`);
+  } else {
+    console.log(`Environment variable ${env} is present.`);
   }
 });
+
+if (process.env.MONGO_URI && process.env.MONGO_URI.includes('localhost')) {
+  console.warn('WARNING: App is trying to use a localhost MongoDB URI in production!');
+}
 
 connectDB();
 
