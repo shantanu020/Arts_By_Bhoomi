@@ -6,12 +6,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import { ArrowLeft, ShieldCheck, CheckCircle2 } from "lucide-react";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/components/shop/CheckoutForm";
-
-// Replace with your real public key in production
-const stripePromise = loadStripe("pk_test_placeholder");
 
 export default function CheckoutPage() {
   const { cart, cartTotal } = useCart();
@@ -177,9 +172,7 @@ export default function CheckoutPage() {
               </Reveal>
 
               <Reveal>
-                <Elements stripe={stripePromise}>
-                  <CheckoutForm customerDetails={formData} amount={cartTotal} />
-                </Elements>
+                <CheckoutForm customerDetails={formData} amount={cartTotal} cartItems={cart} />
               </Reveal>
             </div>
           )}

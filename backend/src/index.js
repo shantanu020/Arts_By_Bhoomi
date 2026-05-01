@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.routes.js';
 import productRoutes from './routes/product.routes.js';
 import orderRoutes from './routes/order.routes.js';
-import stripeRoutes from './routes/stripe.routes.js';
+import razorpayRoutes from './routes/razorpay.routes.js';
 import blogRoutes from './routes/blog.routes.js';
 
 dotenv.config();
@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
-app.use('/api/stripe', stripeRoutes);
+app.use('/api/razorpay', razorpayRoutes);
 app.use('/api/blogs', blogRoutes);
 
 app.get('/', (req, res) => {
