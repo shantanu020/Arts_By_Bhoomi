@@ -4,7 +4,7 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", italic: true });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", style: "italic" });
 
 export const metadata: Metadata = {
   title: {
