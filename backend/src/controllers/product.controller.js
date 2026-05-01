@@ -37,13 +37,16 @@ export const getProductById = async (req, res) => {
 // @route   POST /api/products
 // @access  Private/Admin
 export const createProduct = async (req, res) => {
+  const { title, price, description, images, category, stock, isFeatured } = req.body;
+  
   const product = new Product({
-    title: 'Sample name',
-    price: 0,
-    description: 'Sample description',
-    images: ['/images/sample.jpg'],
-    category: 'Paintings',
-    stock: 1,
+    title: title || 'Untitled Masterpiece',
+    price: price || 0,
+    description: description || 'No description provided',
+    images: images && images.length > 0 ? images : ['/images/sample.jpg'],
+    category: category || 'Paintings',
+    stock: stock !== undefined ? stock : 1,
+    isFeatured: isFeatured || false
   });
 
   const createdProduct = await product.save();

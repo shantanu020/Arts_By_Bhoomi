@@ -1,57 +1,17 @@
 "use client";
 
+import { useEffect, useState, useRef } from "react";
 import MasonryGallery from "@/components/features/MasonryGallery";
 import Reveal from "@/components/ui/Reveal";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-
-const MOCK_GALLERY_ITEMS = [
-  {
-    id: "g1",
-    title: "Urban Pulse",
-    imageUrl: "https://images.unsplash.com/photo-1547891301-1555e0c0792e?q=80&w=1000&auto=format&fit=crop",
-    heightClass: "h-96", 
-    category: "Digital"
-  },
-  {
-    id: "g2",
-    title: "Silent Whisper",
-    imageUrl: "https://images.unsplash.com/photo-1578301978018-3005759f48f7?q=80&w=1000&auto=format&fit=crop",
-    heightClass: "h-64",
-    category: "Acrylic"
-  },
-  {
-    id: "g3",
-    title: "Ocean's Depth",
-    imageUrl: "https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=1000&auto=format&fit=crop",
-    heightClass: "h-80",
-    category: "Acrylic"
-  },
-  {
-    id: "g4",
-    title: "Golden Hour",
-    imageUrl: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=1000&auto=format&fit=crop",
-    heightClass: "h-[28rem]",
-    category: "Digital"
-  },
-  {
-    id: "g5",
-    title: "Lost in Thought",
-    imageUrl: "https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?q=80&w=1000&auto=format&fit=crop",
-    heightClass: "h-72",
-    category: "Pencil"
-  },
-  {
-    id: "g6",
-    title: "Abstract Flow",
-    imageUrl: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1000&auto=format&fit=crop",
-    heightClass: "h-96",
-    category: "Acrylic"
-  },
-];
+import api from "@/lib/api";
+import { Loader2 } from "lucide-react";
 
 export default function GalleryPage() {
+  const [items, setItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -59,18 +19,38 @@ export default function GalleryPage() {
 
   const headingX = useTransform(scrollYProgress, [0, 1], [0, -200]);
 
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const { data } = await api.get("/gallery");
+        // Add random height classes for masonry variety if not present
+        const heights = ["h-64", "h-80", "h-96", "h-[28rem]", "h-72"];
+        const itemsWithHeights = data.map((item: any, i: number) => ({
+          ...item,
+          heightClass: heights[i % heights.length]
+        }));
+        setItems(itemsWithHeights);
+      } catch (err) {
+        console.error("Failed to fetch gallery items", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchGallery();
+  }, []);
+
   return (
     <div ref={containerRef} className="bg-primary min-h-screen">
       {/* Floating Heading Section */}
       <section className="h-[60vh] flex items-center justify-center relative overflow-hidden px-6">
         <motion.div style={{ x: headingX }} className="flex flex-col items-center">
           <Reveal>
-            <span className="text-accent text-[10px] uppercase tracking-[0.5em] mb-8 block font-bold">The Exhibition</span>
+            <span className="text-accent text-[10px] uppercase tracking-[0.5em] mb-8 block font-bold text-center">The Exhibition</span>
           </Reveal>
           <Reveal>
-            <h1 className="text-7xl md:text-[12rem] font-serif tracking-tighter leading-[0.8] italic whitespace-nowrap">
+            <h1 className="text-7xl md:text-[12rem] font-serif tracking-tighter leading-[0.8] italic whitespace-nowrap text-center">
               Curated<br/>
-              <span className="text-text-muted/20 ml-24 md:ml-48">Galleria</span>
+              <span className="text-text-muted/20 ml-12 md:ml-48">Galleria</span>
             </h1>
           </Reveal>
         </motion.div>
@@ -86,8 +66,20 @@ export default function GalleryPage() {
 
       {/* Masonry Grid */}
       <section className="px-6 pb-48">
-        <div className="max-w-[1800px] mx-auto">
-          <MasonryGallery items={MOCK_GALLERY_ITEMS} />
+        <div className="max-w-7xl mx-auto px-6">
+          {loading ? (
+            <div className="h-96 flex flex-col items-center justify-center gap-4 text-text-muted">
+              <Loader2 className="w-8 h-8 animate-spin text-accent" />
+              <p className="text-[10px] uppercase tracking-[0.4em] font-bold">Unveiling Collection</p>
+            </div>
+          ) : items.length > 0 ? (
+            <MasonryGallery items={items} />
+          ) : (
+            <div className="h-96 flex flex-col items-center justify-center text-text-muted border border-dashed border-secondary/60 rounded-sm">
+               <p className="font-serif italic text-2xl">The gallery is currently being curated.</p>
+               <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-accent mt-4">Check back soon</p>
+            </div>
+          )}
         </div>
       </section>
 

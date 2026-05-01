@@ -14,7 +14,7 @@ export default function AboutPage() {
       <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-primary/20 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden px-6 py-32 relative z-10">
+      <section className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden px-6 py-32">
         <div className="absolute inset-0 z-0">
           <Image
             src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=2000&auto=format&fit=crop"
@@ -50,71 +50,73 @@ export default function AboutPage() {
       </section>
 
       {/* Story Section */}
-      <section className="max-w-[1600px] mx-auto px-6 py-48 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-32 items-center">
-          
-          <div className="lg:col-span-5 relative">
-            <Reveal>
-              <div className="relative aspect-[3/4] rounded-sm overflow-hidden shadow-3xl group">
-                 <Image
-                    src="https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=1000&auto=format&fit=crop"
-                    alt="Bhoomi Painting"
-                    fill
-                    className="object-cover transition-transform duration-[3s] group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-accent/5 mix-blend-overlay" />
-              </div>
-            </Reveal>
-            {/* Floating Label */}
-            <div className="absolute -right-8 top-1/2 -translate-y-1/2 rotate-90 origin-right">
-               <span className="text-[10px] uppercase tracking-[0.8em] text-accent/30 font-bold whitespace-nowrap select-none">Bhoomi Singh — 2024</span>
-            </div>
-          </div>
-
-          <div className="lg:col-span-7 space-y-16">
-            <Reveal delay={0.2}>
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                   <span className="h-[1px] w-12 bg-accent" />
-                   <span className="text-accent text-[11px] uppercase tracking-[0.5em] font-bold">The Narrative</span>
-                </div>
-                <h3 className="text-5xl md:text-8xl font-serif italic tracking-tighter leading-none mb-12">
-                  From margins to <br/><span className="text-accent">masterpieces.</span>
-                </h3>
-              </div>
-            </Reveal>
+      <section className="px-6 py-48 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             
-            <Reveal delay={0.4}>
-              <div className="space-y-10 text-xl text-text-muted leading-relaxed font-light italic font-serif max-w-2xl">
-                <p>
-                  Hi, I'm <span className="text-text-main font-bold not-italic font-sans text-lg tracking-[0.1em] uppercase border-b border-accent/20 pb-1">Bhoomi Singh</span>. My journey with art began long before I could put it into words. It started with graphite smudges on notebook margins and has blossomed into a lifelong pursuit of capturing emotion on canvas.
-                </p>
-                <p>
-                  Through "Arts by Bhoomi", I share not just my finished pieces, but the raw, unpolished process of creation. My work spans across acrylics, charcoal sketches, and digital mediums, always striving to find the delicate balance between realism and abstract expression.
-                </p>
+            <div className="relative">
+              <Reveal>
+                <div className="relative aspect-[3/4] rounded-sm overflow-hidden shadow-3xl group">
+                   <Image
+                      src="https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=1000&auto=format&fit=crop"
+                      alt="Bhoomi Painting"
+                      fill
+                      className="object-cover transition-transform duration-[3s] group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-accent/5 mix-blend-overlay" />
+                </div>
+              </Reveal>
+              {/* Internal Floating Label - Moved inside to prevent overflow */}
+              <div className="absolute right-4 bottom-8 rotate-90 origin-right">
+                 <span className="text-[10px] uppercase tracking-[0.8em] text-white/50 font-bold whitespace-nowrap select-none">Bhoomi Singh — 2024</span>
               </div>
-            </Reveal>
+            </div>
 
-            <Reveal delay={0.6}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-16 pt-16 border-t border-secondary/60">
+            <div className="space-y-16">
+              <Reveal delay={0.2}>
                 <div className="space-y-6">
-                  <div className="w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center text-accent">
-                    <Palette className="w-6 h-6" />
+                  <div className="flex items-center gap-4">
+                     <span className="h-[1px] w-12 bg-accent" />
+                     <span className="text-accent text-[11px] uppercase tracking-[0.5em] font-bold">The Narrative</span>
                   </div>
-                  <h4 className="text-2xl font-serif italic">Mixed Mediums</h4>
-                  <p className="text-sm text-text-muted font-light leading-relaxed">Exploring the boundaries between acrylics, charcoal, and digital innovation.</p>
+                  <h3 className="text-5xl md:text-7xl font-serif italic tracking-tighter leading-none mb-12">
+                    From margins to <br/><span className="text-accent">masterpieces.</span>
+                  </h3>
                 </div>
-                <div className="space-y-6">
-                  <div className="w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center text-accent">
-                    <Heart className="w-6 h-6" />
+              </Reveal>
+              
+              <Reveal delay={0.4}>
+                <div className="space-y-10 text-xl text-text-muted leading-relaxed font-light italic font-serif">
+                  <p>
+                    Hi, I'm <span className="text-text-main font-bold not-italic font-sans text-lg tracking-[0.1em] uppercase border-b border-accent/20 pb-1">Bhoomi Singh</span>. My journey with art began long before I could put it into words. It started with graphite smudges on notebook margins and has blossomed into a lifelong pursuit of capturing emotion on canvas.
+                  </p>
+                  <p>
+                    Through "Arts by Bhoomi", I share not just my finished pieces, but the raw, unpolished process of creation. My work spans across acrylics, charcoal sketches, and digital mediums.
+                  </p>
+                </div>
+              </Reveal>
+
+              <Reveal delay={0.6}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-16 border-t border-secondary/60">
+                  <div className="space-y-6">
+                    <div className="w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center text-accent">
+                      <Palette className="w-6 h-6" />
+                    </div>
+                    <h4 className="text-2xl font-serif italic">Mixed Mediums</h4>
+                    <p className="text-sm text-text-muted font-light leading-relaxed">Exploring the boundaries between acrylics, charcoal, and digital innovation.</p>
                   </div>
-                  <h4 className="text-2xl font-serif italic">Emotional Depth</h4>
-                  <p className="text-sm text-text-muted font-light leading-relaxed">Every stroke is an intentional fragment of a story meant to resonate with the observer.</p>
+                  <div className="space-y-6">
+                    <div className="w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center text-accent">
+                      <Heart className="w-6 h-6" />
+                    </div>
+                    <h4 className="text-2xl font-serif italic">Emotional Depth</h4>
+                    <p className="text-sm text-text-muted font-light leading-relaxed">Every stroke is an intentional fragment of a story meant to resonate.</p>
+                  </div>
                 </div>
-              </div>
-            </Reveal>
+              </Reveal>
+            </div>
+
           </div>
-
         </div>
       </section>
 
@@ -124,12 +126,12 @@ export default function AboutPage() {
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent/10 rounded-full blur-[150px]" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white/5 rounded-full blur-[120px]" />
         
-        <div className="relative z-10 max-w-6xl mx-auto text-center">
+        <div className="relative z-10 max-w-5xl mx-auto text-center">
           <Reveal>
              <div className="flex flex-col items-center gap-12">
                 <div className="w-px h-24 bg-gradient-to-b from-transparent to-accent" />
                 <span className="text-accent text-[11px] tracking-[0.6em] uppercase font-bold">My Philosophy</span>
-                <p className="text-4xl md:text-7xl font-serif leading-[1.2] text-white italic tracking-tight">
+                <p className="text-4xl md:text-6xl font-serif leading-[1.2] text-white italic tracking-tight">
                   "I believe that art should be <span className="text-accent">accessible</span>, emotional, and deeply personal. It's a conversation between the creator and the observer."
                 </p>
                 <div className="w-24 h-[1px] bg-accent/40" />

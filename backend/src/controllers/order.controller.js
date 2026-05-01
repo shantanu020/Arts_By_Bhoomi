@@ -1,4 +1,5 @@
 import Order from '../models/order.model.js';
+import Product from '../models/product.model.js';
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -83,6 +84,51 @@ export const getMyOrders = async (req, res) => {
 // @route   GET /api/orders
 // @access  Private/Admin
 export const getOrders = async (req, res) => {
-  const orders = await Order.find({}).populate('user', 'id name');
+  const orders = await Order.find({}).sort({ createdAt: -1 }).populate('user', 'id name');
   res.json(orders);
+};
+
+// @desc    Get stats for dashboard
+// @route   GET /api/orders/stats
+// @access  Private/Admin
+export const getOrderStats = async (req, res) => {
+  const totalOrders = await Order.countDocuments();
+  const orders = await Order.find({});
+  const totalRevenue = orders.reduce((acc, item) => acc + item.totalPrice, 0);
+  
+  // You could also get product count and request count here or in separate calls
+  res.json({
+    totalOrders,
+    totalRevenue,
+  });
+};
+
+// @desc    Update order to delivered
+// @route   PUT /api/orders/:id/deliver
+// @access  Private/Admin
+export const updateOrderToDelivered = async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    // Decrease stock for each item in the order
+    if (order.orderItems) {
+      for (const item of order.orderItems) {
+        if (item.product) {
+          const product = await Product.findById(item.product);
+          if (product) {
+            product.stock = Math.max(0, product.stock - (item.qty || 1));
+            await product.save();
+          }
+        }
+      }
+    }
+
+    const updatedOrder = await order.save();
+    res.json(updatedOrder);
+  } else {
+    res.status(404).json({ message: 'Order not found' });
+  }
 };

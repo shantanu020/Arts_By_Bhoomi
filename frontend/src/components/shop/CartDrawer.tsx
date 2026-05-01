@@ -88,7 +88,19 @@ export default function CartDrawer() {
                       className="flex gap-8 items-start group"
                     >
                       <div className="relative w-24 aspect-[3/4] overflow-hidden bg-[#f5f5f0] rounded-sm shadow-md">
-                        <Image src={item.imageUrl} alt={item.title} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" />
+                        {item.imageUrl ? (
+                          <Image 
+                            src={item.imageUrl} 
+                            alt={item.title} 
+                            fill 
+                            unoptimized
+                            className="object-cover transition-transform duration-1000 group-hover:scale-110" 
+                          />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center text-text-muted/30">
+                             <ShoppingBag className="w-6 h-6" />
+                          </div>
+                        )}
                       </div>
                       <div className="flex-1 space-y-2 pt-2">
                         <div className="flex justify-between items-start gap-4">

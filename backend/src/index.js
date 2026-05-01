@@ -1,20 +1,29 @@
+import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/db.js';
 import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
 
 import authRoutes from './routes/auth.routes.js';
 import productRoutes from './routes/product.routes.js';
 import orderRoutes from './routes/order.routes.js';
 import razorpayRoutes from './routes/razorpay.routes.js';
 import blogRoutes from './routes/blog.routes.js';
+import galleryRoutes from './routes/gallery.routes.js';
+import uploadRoutes from './routes/upload.routes.js';
+import inquiryRoutes from './routes/inquiry.routes.js';
 
 dotenv.config();
 
 connectDB();
 
 const app = express();
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // Enhanced CORS for production
 const allowedOrigins = [
@@ -35,7 +44,7 @@ app.use(cors({
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 app.use(express.json());
@@ -48,6 +57,12 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/razorpay', razorpayRoutes);
 app.use('/api/blogs', blogRoutes);
+app.use('/api/gallery', galleryRoutes);
+app.use('/api/upload', uploadRoutes);
+app.use('/api/inquiries', inquiryRoutes);
+
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.get('/', (req, res) => {
   res.send('Arts by Bhoomi API is running...');

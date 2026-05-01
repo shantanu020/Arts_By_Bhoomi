@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <footer className="py-24 px-6 border-t border-secondary bg-primary">
-      <div className="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
         <div className="max-w-xs">
           <h3 className="text-xl font-serif mb-4 italic">Arts by Bhoomi</h3>
           <p className="text-text-muted text-xs leading-relaxed tracking-wider uppercase">
@@ -31,7 +31,7 @@ export default function Footer() {
         </div>
       </div>
       
-      <div className="max-w-screen-2xl mx-auto mt-24 pt-8 border-t border-secondary flex justify-between items-center text-[8px] uppercase tracking-[0.3em] text-text-muted">
+      <div className="max-w-7xl mx-auto mt-24 pt-8 border-t border-secondary flex justify-between items-center text-[8px] uppercase tracking-[0.3em] text-text-muted">
         <p>© {new Date().getFullYear()} Arts by Bhoomi. All rights reserved.</p>
         <p>Built for the extraordinary.</p>
       </div>

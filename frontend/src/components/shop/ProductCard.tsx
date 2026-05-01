@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Reveal from "@/components/ui/Reveal";
 import { useCart } from "@/context/CartContext";
-import { Plus, ArrowRight } from "lucide-react";
+import { Plus, ArrowRight, ImageIcon } from "lucide-react";
 
 interface ProductCardProps {
   id: string;
@@ -28,6 +28,8 @@ export default function ProductCard({
   className,
 }: ProductCardProps) {
   const { addToCart } = useCart();
+  
+  const isValidImage = typeof imageUrl === 'string' && imageUrl.length > 0;
 
   return (
     <Reveal>
@@ -35,20 +37,28 @@ export default function ProductCard({
         {/* Image Container with Floating Effects */}
         <Link 
           href={`/shop/${id}`} 
-          className="block relative aspect-[4/5] overflow-hidden rounded-sm bg-secondary mb-8 group"
+          className="block relative aspect-[4/5] overflow-hidden rounded-sm bg-secondary/20 mb-8 group"
         >
           <motion.div 
             className="w-full h-full"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
           >
-            <Image
-              src={imageUrl}
-              alt={title}
-              fill
-              className="object-cover transition-opacity duration-700 group-hover:opacity-90"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
+            {isValidImage ? (
+              <Image
+                src={imageUrl}
+                alt={title}
+                fill
+                unoptimized
+                className="object-cover transition-opacity duration-700 group-hover:opacity-90"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-text-muted/40">
+                 <ImageIcon className="w-12 h-12 mb-2" />
+                 <span className="text-[10px] uppercase tracking-widest font-bold">In Curation</span>
+              </div>
+            )}
           </motion.div>
           
           {/* Status Badge */}
@@ -61,7 +71,7 @@ export default function ProductCard({
           )}
 
           {/* Quick Action Overlay */}
-          {isAvailable && (
+          {isAvailable && isValidImage && (
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
               <button
                 onClick={(e) => {

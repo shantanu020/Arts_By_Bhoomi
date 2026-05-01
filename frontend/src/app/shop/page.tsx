@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import api from "@/lib/api";
 import Reveal from "@/components/ui/Reveal";
 import ProductCard from "@/components/shop/ProductCard";
-import { Sparkles, ArrowDown } from "lucide-react";
+import { Sparkles, ArrowDown, ImageIcon } from "lucide-react";
 
 interface Product {
   _id: string;
@@ -98,7 +98,7 @@ export default function ShopPage() {
 
       {/* Hero Section */}
       <section className="relative pt-48 pb-32 px-6 overflow-hidden">
-        <div className="max-w-[1800px] mx-auto relative z-10">
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-16">
             <div className="max-w-3xl">
               <Reveal>
@@ -155,15 +155,22 @@ export default function ShopPage() {
       {/* Featured Spotlight Section */}
       {activeFilter === 'All' && products.length > 0 && (
         <section className="px-6 mb-32">
-          <div className="max-w-[1800px] mx-auto">
+          <div className="max-w-7xl mx-auto">
             <Reveal>
-              <div className="relative h-[60vh] md:h-[70vh] rounded-sm overflow-hidden group">
-                <Image 
-                  src={products[0].images[0]} 
-                  alt="Featured" 
-                  fill 
-                  className="object-cover transition-transform duration-[3s] group-hover:scale-110"
-                />
+              <div className="relative h-[60vh] md:h-[70vh] rounded-sm overflow-hidden group bg-secondary/10">
+                {products[0].images && products[0].images.length > 0 && typeof products[0].images[0] === 'string' ? (
+                  <Image 
+                    src={products[0].images[0]} 
+                    alt="Featured" 
+                    fill 
+                    unoptimized
+                    className="object-cover transition-transform duration-[3s] group-hover:scale-110"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center text-text-muted/40">
+                     <ImageIcon className="w-16 h-16" />
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-6">
                   <span className="text-[10px] uppercase tracking-[0.6em] mb-4 font-bold">Featured Artwork</span>
@@ -185,7 +192,7 @@ export default function ShopPage() {
 
       {/* Product Grid */}
       <section className="px-6 pb-48 relative z-10">
-        <div className="max-w-[1800px] mx-auto">
+        <div className="max-w-7xl mx-auto">
           {loading && products.length === 0 ? (
             <div className="h-[40vh] flex flex-col items-center justify-center gap-6">
                <div className="w-12 h-12 border-2 border-accent border-t-transparent rounded-full animate-spin" />
@@ -194,7 +201,7 @@ export default function ShopPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-32">
               {filteredProducts.map((product, idx) => (
-                <div key={product._id} className={idx % 2 === 1 ? 'md:mt-48' : ''}>
+                <div key={product._id}>
                   <ProductCard
                     id={product._id}
                     title={product.title}
